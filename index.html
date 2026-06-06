@@ -355,20 +355,61 @@ function renderQuestion(){
 
     `;
 
+if(q.imageQuestion){
+
+    html += `
+    <div style="margin-bottom:20px;text-align:center;">
+        <img src="${q.questionImage}"
+             style="max-width:100%;border-radius:12px;">
+    </div>
+
+    <div style="
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    ">
+    `;
+
     q.options.forEach((item,index)=>{
 
-        html+=`
-
+        html += `
         <div class="option"
-        onclick="selectOption(${index},this)">
+             onclick="selectOption(${index},this)">
 
-        ${item}
+            <img src="${item.image}"
+                 style="
+                 width:100%;
+                 border-radius:10px;
+                 display:block;
+                 ">
+
+            <div style="
+                text-align:center;
+                margin-top:8px;
+                font-weight:bold;
+            ">
+                ${item.key}
+            </div>
 
         </div>
-
         `;
-
     });
+
+    html += `</div>`;
+
+}else{
+
+    q.options.forEach((item,index)=>{
+
+        html += `
+        <div class="option"
+             onclick="selectOption(${index},this)">
+            ${item}
+        </div>
+        `;
+    });
+
+}
 
     html+=`
 
