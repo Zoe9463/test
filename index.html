@@ -468,44 +468,68 @@ function nextQuestion(){
     renderQuestion();
 
 }
-
 function showResult(){
 
-    document.getElementById("questionCard").style.display="none";
-    document.getElementById("progressWrap").style.display="none";
+```
+document.getElementById("questionCard").style.display="none";
+document.getElementById("progressWrap").style.display="none";
 
-    // 这里以后替换成你的权重算法
+const systems = Object.keys(scoringData);
 
-    const result=`
+let results = [];
 
+systems.forEach(name=>{
+
+    let total = 0;
+
+    answers.forEach((answer,index)=>{
+
+        const option =
+            ["A","B","C","D"][answer];
+
+        const key =
+            `Q${index+1}${option}`;
+
+        total +=
+            scoringData[name][key] || 0;
+
+    });
+
+    results.push({
+        name:name,
+        score:total
+    });
+
+});
+
+results.sort(
+    (a,b)=>b.score-a.score
+);
+
+const medals = ["🥇","🥈","🥉"];
+
+let html = `
     <h2>你的术数天赋排行</h2>
+`;
 
+for(let i=0;i<3;i++){
+
+    html += `
     <div class="rank">
-        <div class="rank-title">
-        🥇 八字
-        </div>
-        匹配度 96%
-    </div>
 
-    <div class="rank">
         <div class="rank-title">
-        🥈 奇门遁甲
+            ${medals[i]} ${results[i].name}
         </div>
-        匹配度 88%
-    </div>
 
-    <div class="rank">
-        <div class="rank-title">
-        🥉 大六壬
-        </div>
-        匹配度 83%
-    </div>
+        匹配得分 ${results[i].score}
 
+    </div>
     `;
+}
 
-    document.getElementById("result").innerHTML=result;
-
-    document.getElementById("result").style.display="block";
+document.getElementById("result").innerHTML = html;
+document.getElementById("result").style.display="block";
+```
 
 }
 
