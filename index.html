@@ -365,8 +365,8 @@ if(q.imageQuestion){
 
     <div style="
         display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:12px;
+        grid-template-columns:repeat(4,1fr);
+        gap:8px;
     ">
     `;
 
@@ -379,7 +379,9 @@ if(q.imageQuestion){
             <img src="${item.image}"
                  style="
                  width:100%;
-                 border-radius:10px;
+                 max-height:120px;
+                 object-fit:contain;
+                 border-radius:8px;
                  display:block;
                  ">
 
