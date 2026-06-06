@@ -7,7 +7,6 @@
 <title>术数天赋测试</title>
 
 <style>
-
 body{
     margin:0;
     background:#f5f3ef;
@@ -38,6 +37,7 @@ h1{
     border-radius:16px;
     padding:24px;
     box-shadow:0 2px 12px rgba(0,0,0,.05);
+    line-height:1.8;
 }
 
 .start-btn{
@@ -68,6 +68,7 @@ h1{
     height:100%;
     width:0%;
     background:#8b6b3f;
+    transition:.2s;
 }
 
 .question-card{
@@ -87,6 +88,7 @@ h1{
 .question-title{
     font-size:24px;
     margin-bottom:20px;
+    line-height:1.5;
 }
 
 .option{
@@ -96,6 +98,7 @@ h1{
     margin-bottom:12px;
     cursor:pointer;
     transition:.2s;
+    line-height:1.7;
 }
 
 .option:hover{
@@ -107,7 +110,22 @@ h1{
     background:#faf6ef;
 }
 
-.next-btn{
+.image-option{
+    padding:8px;
+    margin-bottom:0;
+}
+
+.image-option img{
+    width:100%;
+    max-height:120px;
+    object-fit:contain;
+    border-radius:8px;
+    display:block;
+}
+
+.next-btn,
+.back-btn,
+.restart-btn{
     width:100%;
     padding:16px;
     border:none;
@@ -119,12 +137,19 @@ h1{
     cursor:pointer;
 }
 
+.back-btn{
+    background:#ddd;
+    color:#222;
+    margin-top:12px;
+}
+
 .result{
     display:none;
     background:white;
     margin-top:20px;
     padding:24px;
     border-radius:16px;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
 }
 
 .rank{
@@ -140,6 +165,26 @@ h1{
     margin-bottom:8px;
 }
 
+.answer-code{
+    color:#777;
+    font-size:14px;
+    margin-top:18px;
+    word-break:break-all;
+}
+
+@media(max-width:520px){
+    h1{
+        font-size:30px;
+    }
+
+    .question-title{
+        font-size:22px;
+    }
+
+    .image-option img{
+        max-height:90px;
+    }
+}
 </style>
 </head>
 
@@ -155,24 +200,11 @@ h1{
 
     <div id="intro" class="intro">
 
-        <p>
-            浩瀚星河，易理万千。
-            从西方的黄道十二宫到东方的四柱八字，风水六爻，人类从未停止过对命运规律的探索。
-        </p>
+        <p>浩瀚星河，易理万千。从西方的黄道十二宫到东方的四柱八字，风水六爻，人类从未停止过对命运规律的探索。</p>
 
-        <p>
-            有人天生对严谨的逻辑推演敏感，适合深挖大六壬；
-            有人直觉惊人，注定与塔罗神谕共鸣。
-            是擅长六爻问卦，还是更具塔罗星盘的灵性？
-        </p>
+        <p>有人天生对严谨的逻辑推演敏感，适合深挖大六壬；有人直觉惊人，注定与塔罗神谕共鸣。是擅长六爻问卦，还是更具塔罗星盘的灵性？</p>
 
-        <p>
-            玄学术数五花八门，哪一条才是属于你的“天赋之路”？
-            接下来的几道题，将带你剥开迷雾，找到真正契合你灵魂的术数系统。
-            快来测测吧！
-        
-
-        </p>
+        <p>玄学术数五花八门，哪一条才是属于你的“天赋之路”？接下来的几道题，将带你剥开迷雾，找到真正契合你灵魂的术数系统。快来测测吧！</p>
 
         <button class="start-btn" onclick="startQuiz()">
             开始测试
@@ -199,7 +231,6 @@ h1{
 </div>
 
 <script>
-
 const questions = [
 
 {
@@ -255,10 +286,10 @@ options:[
 {
 title:"最近心情不太好约了最好的朋友出来小聚，你最想先聊哪一个？",
 options:[
-"A. 未来的人生轨迹，职业规划",
-"B. 眼前当下的这个选择，我该如何抉择",
-"C. 别人是怎么看待我的",
-"D. 经历的不顺，是否是我哪里决策出错，我应该如何调整一下自己"
+"A. 未来的人生轨迹，职业规划。",
+"B. 眼前当下的这个选择，我该如何抉择。",
+"C. 别人是怎么看待我的。",
+"D. 经历的不顺，是否是我哪里决策出错，我应该如何调整一下自己。"
 ]
 },
 
@@ -283,10 +314,10 @@ options:[
 },
 
 {
-title:"如果给你一项超能力，你更想拥有哪一种？",
+title:"如果给你一项“超能力”，你更想拥有哪一种？",
 options:[
 "A. 看穿人心",
-"B. 实时感知危险或机会",
+"B. 实时感知危险/机会",
 "C. 改变环境",
 "D. 预知未来"
 ]
@@ -303,7 +334,7 @@ options:[
 },
 
 {
-title:"请选择最吸引你的图案",
+title:"Q11.",
 imageQuestion:true,
 questionImage:"图片1.png",
 options:[
@@ -325,46 +356,1073 @@ options:[
 }
 
 ];
-    
-const systems = [
-"星盘",
-"占星骰子",
-"塔罗",
-"雷诺曼",
-"神谕卡",
-"印度占卜",
-"灵摆",
-"道",
-"巫(出马仙)",
-"八字",
-"六爻(梅花易数)",
-"奇门",
-"大六壬",
-"小六壬",
-"风水",
-"七政四余",
-"紫微",
-"皇极经世",
-"观音",
-"掷筊",
-"其他"
-];
-    
+
+const scoringData = {
+  "星盘": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 1,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 1,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "占星骰子": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 1,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 1,
+    "Q3D": 0,
+    "Q4A": 0,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 0,
+    "Q6C": 1,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "塔罗": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 1,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 1,
+    "Q3D": 0,
+    "Q4A": 0,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 0,
+    "Q5B": 0,
+    "Q5C": 1,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 1,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 0,
+    "Q8B": 1,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 1,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "雷诺曼": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 1,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 1,
+    "Q3D": 0,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 1,
+    "Q4D": 0,
+    "Q5A": 0,
+    "Q5B": 0,
+    "Q5C": 1,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 1,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 0,
+    "Q8B": 1,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "神谕卡": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 1,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 0,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 0,
+    "Q5C": 1,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 1,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 1,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 1,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 1,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "印度占卜": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 0,
+    "Q5B": 0,
+    "Q5C": 1,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 1,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 1,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": -999
+  },
+  "灵摆": {
+    "Q1A": -999,
+    "Q1B": -999,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 1,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 0,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "僧": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 0,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 1,
+    "Q6A": 0,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 1,
+    "Q7A": 0,
+    "Q7B": 0,
+    "Q7C": 1,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 1,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 1,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "道": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 0,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 1,
+    "Q6A": 0,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 1,
+    "Q7A": 0,
+    "Q7B": 0,
+    "Q7C": 1,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 0,
+    "Q9C": 1,
+    "Q9D": 0,
+    "Q10A": 1,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "巫(出马仙)": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 0,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 1,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 1,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "八字": {
+    "Q1A": 1,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 1,
+    "Q2B": 1,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 1,
+    "Q3B": 0,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 1,
+    "Q9A": 1,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 1,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 1,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "六爻(梅花易数)": {
+    "Q1A": 1,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 1,
+    "Q2D": 0,
+    "Q3A": 1,
+    "Q3B": 1,
+    "Q3C": 1,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 0,
+    "Q8B": 1,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 1,
+    "Q10D": 0,
+    "Q11A": -999,
+    "Q11B": 0,
+    "Q11C": -999,
+    "Q11D": -999,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "奇门": {
+    "Q1A": 0,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 1,
+    "Q2B": 1,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 1,
+    "Q3B": 0,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 0,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 0,
+    "Q9C": 1,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 1,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": -999,
+    "Q12D": 0
+  },
+  "大六壬": {
+    "Q1A": 0,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 1,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 1,
+    "Q3B": 0,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 1,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 1,
+    "Q10D": 0,
+    "Q11A": -999,
+    "Q11B": 0,
+    "Q11C": -999,
+    "Q11D": -999,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": -999,
+    "Q12D": -999
+  },
+  "小六壬": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 1,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 0,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 1,
+    "Q4D": 0,
+    "Q5A": 0,
+    "Q5B": 0,
+    "Q5C": 1,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 0,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "风水": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 0,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 0,
+    "Q5C": 1,
+    "Q5D": 0,
+    "Q6A": 0,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 1,
+    "Q7A": 0,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 0,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 0,
+    "Q9C": 1,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 1,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": -999
+  },
+  "七政四余": {
+    "Q1A": 0,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 0,
+    "Q2B": 1,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 0,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 1,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 1,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": -999
+  },
+  "紫微": {
+    "Q1A": 0,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 1,
+    "Q2B": 1,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 0,
+    "Q3B": 1,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 0,
+    "Q4B": 1,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 1,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 1,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 1,
+    "Q11A": -999,
+    "Q11B": 0,
+    "Q11C": -999,
+    "Q11D": -999,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": -999,
+    "Q12D": -999
+  },
+  "皇极经世": {
+    "Q1A": 0,
+    "Q1B": 1,
+    "Q1C": 1,
+    "Q1D": 1,
+    "Q2A": 1,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 0,
+    "Q3A": 1,
+    "Q3B": 0,
+    "Q3C": 0,
+    "Q3D": 0,
+    "Q4A": 1,
+    "Q4B": 0,
+    "Q4C": 0,
+    "Q4D": 0,
+    "Q5A": 1,
+    "Q5B": 0,
+    "Q5C": 0,
+    "Q5D": 0,
+    "Q6A": 1,
+    "Q6B": 0,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 1,
+    "Q7C": 0,
+    "Q7D": 0,
+    "Q8A": 1,
+    "Q8B": 0,
+    "Q8C": 0,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 0,
+    "Q9C": 0,
+    "Q9D": 1,
+    "Q10A": 0,
+    "Q10B": 0,
+    "Q10C": 0,
+    "Q10D": 1,
+    "Q11A": -999,
+    "Q11B": 0,
+    "Q11C": -999,
+    "Q11D": -999,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": -999,
+    "Q12D": -999
+  },
+  "观香": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 1,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 1,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 0,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  },
+  "掷筊": {
+    "Q1A": 1,
+    "Q1B": 0,
+    "Q1C": 1,
+    "Q1D": 0,
+    "Q2A": 0,
+    "Q2B": 0,
+    "Q2C": 0,
+    "Q2D": 1,
+    "Q3A": 0,
+    "Q3B": 0,
+    "Q3C": 1,
+    "Q3D": 1,
+    "Q4A": 0,
+    "Q4B": 0,
+    "Q4C": 1,
+    "Q4D": 1,
+    "Q5A": 0,
+    "Q5B": 1,
+    "Q5C": 0,
+    "Q5D": 1,
+    "Q6A": 0,
+    "Q6B": 1,
+    "Q6C": 0,
+    "Q6D": 0,
+    "Q7A": 0,
+    "Q7B": 0,
+    "Q7C": 0,
+    "Q7D": 1,
+    "Q8A": 0,
+    "Q8B": 0,
+    "Q8C": 1,
+    "Q8D": 0,
+    "Q9A": 0,
+    "Q9B": 1,
+    "Q9C": 0,
+    "Q9D": 0,
+    "Q10A": 0,
+    "Q10B": 1,
+    "Q10C": 0,
+    "Q10D": 0,
+    "Q11A": 0,
+    "Q11B": 0,
+    "Q11C": 0,
+    "Q11D": 0,
+    "Q12A": 0,
+    "Q12B": 0,
+    "Q12C": 0,
+    "Q12D": 0
+  }
+};
+
 let currentQuestion = 0;
 let answers = [];
 
 function startQuiz(){
-
     document.getElementById("intro").style.display="none";
-
+    document.getElementById("result").style.display="none";
     document.getElementById("progressWrap").style.display="block";
-
+    currentQuestion = 0;
+    answers = [];
     renderQuestion();
-
 }
 
 function renderQuestion(){
-
     let q = questions[currentQuestion];
 
     document.getElementById("progressText").innerHTML=
@@ -374,7 +1432,6 @@ function renderQuestion(){
     ((currentQuestion+1)/questions.length*100)+"%";
 
     let html=`
-
     <div class="question-number">
     Question ${currentQuestion+1}
     </div>
@@ -382,181 +1439,174 @@ function renderQuestion(){
     <div class="question-title">
     ${q.title}
     </div>
-
     `;
 
-if(q.imageQuestion){
-
-    html += `
-    <div style="margin-bottom:20px;text-align:center;">
-        <img src="${q.questionImage}"
-             style="max-width:100%;border-radius:12px;">
-    </div>
-
-    <div style="
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:8px;
-    ">
-    `;
-
-    q.options.forEach((item,index)=>{
-
+    if(q.imageQuestion){
         html += `
-        <div class="option"
-             onclick="selectOption(${index},this)">
+        <div style="margin-bottom:20px;text-align:center;">
+            <img src="${q.questionImage}"
+                 style="max-width:100%;border-radius:12px;">
+        </div>
 
-            <img src="${item.image}"
-                 style="
-                 width:100%;
-                 max-height:120px;
-                 object-fit:contain;
-                 border-radius:8px;
-                 display:block;
-                 ">
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:8px;
+        ">
+        `;
 
-            <div style="
-                text-align:center;
-                margin-top:8px;
-                font-weight:bold;
-            ">
-                ${item.key}
+        q.options.forEach((item,index)=>{
+            const selectedClass = answers[currentQuestion] === index ? "selected" : "";
+            html += `
+            <div class="option image-option ${selectedClass}"
+                 onclick="selectOption(${index},this)">
+
+                <img src="${item.image}">
+
+                <div style="
+                    text-align:center;
+                    margin-top:6px;
+                    font-weight:bold;
+                ">
+                    ${item.key}
+                </div>
+
             </div>
+            `;
+        });
 
-        </div>
-        `;
-    });
+        html += `</div>`;
 
-    html += `</div>`;
+    }else{
 
-}else{
+        q.options.forEach((item,index)=>{
+            const selectedClass = answers[currentQuestion] === index ? "selected" : "";
+            html += `
+            <div class="option ${selectedClass}"
+                 onclick="selectOption(${index},this)">
+                ${item}
+            </div>
+            `;
+        });
 
-    q.options.forEach((item,index)=>{
-
-        html += `
-        <div class="option"
-             onclick="selectOption(${index},this)">
-            ${item}
-        </div>
-        `;
-    });
-
-}
+    }
 
     html+=`
-
     <button class="next-btn"
     onclick="nextQuestion()">
-
-    下一题
-
+    ${currentQuestion === questions.length - 1 ? "提交测试" : "下一题"}
     </button>
-
     `;
+
+    if(currentQuestion > 0){
+        html+=`
+        <button class="back-btn"
+        onclick="prevQuestion()">
+        上一题
+        </button>
+        `;
+    }
 
     document.getElementById("questionCard").innerHTML=html;
     document.getElementById("questionCard").style.display="block";
-
+    window.scrollTo({top:0, behavior:"smooth"});
 }
 
 function selectOption(index,el){
-
     document
     .querySelectorAll(".option")
     .forEach(o=>o.classList.remove("selected"));
 
     el.classList.add("selected");
-
     answers[currentQuestion]=index;
-
 }
 
 function nextQuestion(){
-
     if(answers[currentQuestion]==null){
-
         alert("请选择一个选项");
-
         return;
     }
 
     currentQuestion++;
 
     if(currentQuestion>=questions.length){
-
         showResult();
-
         return;
     }
 
     renderQuestion();
-
 }
+
+function prevQuestion(){
+    if(currentQuestion > 0){
+        currentQuestion--;
+        renderQuestion();
+    }
+}
+
 function showResult(){
+    document.getElementById("questionCard").style.display="none";
+    document.getElementById("progressWrap").style.display="none";
 
-```
-document.getElementById("questionCard").style.display="none";
-document.getElementById("progressWrap").style.display="none";
+    const optionLetters = ["A","B","C","D"];
+    let resultList = [];
 
-const systems = Object.keys(scoringData);
+    Object.keys(scoringData).forEach(name=>{
+        let score = 0;
 
-let results = [];
+        answers.forEach((answerIndex, questionIndex)=>{
+            const letter = optionLetters[answerIndex];
+            const key = `Q${questionIndex+1}${letter}`;
+            score += scoringData[name][key] || 0;
+        });
 
-systems.forEach(name=>{
-
-    let total = 0;
-
-    answers.forEach((answer,index)=>{
-
-        const option =
-            ["A","B","C","D"][answer];
-
-        const key =
-            `Q${index+1}${option}`;
-
-        total +=
-            scoringData[name][key] || 0;
-
+        resultList.push({
+            name:name,
+            score:score
+        });
     });
 
-    results.push({
-        name:name,
-        score:total
-    });
+    resultList.sort((a,b)=>b.score-a.score);
 
-});
+    const topScore = resultList[0].score;
+    const medals = ["🥇","🥈","🥉"];
 
-results.sort(
-    (a,b)=>b.score-a.score
-);
-
-const medals = ["🥇","🥈","🥉"];
-
-let html = `
+    let result=`
     <h2>你的术数天赋排行</h2>
-`;
-
-for(let i=0;i<3;i++){
-
-    html += `
-    <div class="rank">
-
-        <div class="rank-title">
-            ${medals[i]} ${results[i].name}
-        </div>
-
-        匹配得分 ${results[i].score}
-
-    </div>
     `;
+
+    for(let i=0;i<3;i++){
+        const item = resultList[i];
+        const percent = topScore > 0
+            ? Math.round((item.score / topScore) * 96)
+            : item.score;
+
+        result += `
+        <div class="rank">
+            <div class="rank-title">
+            ${medals[i]} ${item.name}
+            </div>
+            匹配度 ${percent}%
+        </div>
+        `;
+    }
+
+    const answerCode = answers.map((a,i)=>`Q${i+1}${optionLetters[a]}`).join(" / ");
+
+    result += `
+    <div class="answer-code">
+    你的选择：${answerCode}
+    </div>
+
+    <button class="restart-btn" onclick="startQuiz()">
+    重新测试
+    </button>
+    `;
+
+    document.getElementById("result").innerHTML=result;
+    document.getElementById("result").style.display="block";
+    window.scrollTo({top:0, behavior:"smooth"});
 }
-
-document.getElementById("result").innerHTML = html;
-document.getElementById("result").style.display="block";
-```
-
-}
-
 </script>
 
 </body>
