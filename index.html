@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>术数天赋测试</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#f5f3ef;
+    color:#222;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+.container{
+    max-width:720px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    font-size:36px;
+    margin-top:40px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:30px;
+}
+
+.intro{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+
+.start-btn{
+    width:100%;
+    padding:16px;
+    margin-top:20px;
+    border:none;
+    border-radius:12px;
+    background:#222;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.progress-wrap{
+    display:none;
+    margin-top:20px;
+}
+
+.progress{
+    height:10px;
+    background:#ddd;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#8b6b3f;
+}
+
+.question-card{
+    display:none;
+    background:white;
+    padding:24px;
+    border-radius:16px;
+    margin-top:20px;
+    box-shadow:0 2px 12px rgba(0,0,0,.05);
+}
+
+.question-number{
+    color:#888;
+    margin-bottom:10px;
+}
+
+.question-title{
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+.option{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.option:hover{
+    border-color:#8b6b3f;
+}
+
+.option.selected{
+    border:2px solid #8b6b3f;
+    background:#faf6ef;
+}
+
+.next-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:#222;
+    color:white;
+    font-size:18px;
+    margin-top:20px;
+    cursor:pointer;
+}
+
+.result{
+    display:none;
+    background:white;
+    margin-top:20px;
+    padding:24px;
+    border-radius:16px;
+}
+
+.rank{
+    padding:18px;
+    margin-bottom:15px;
+    border:1px solid #eee;
+    border-radius:12px;
+}
+
+.rank-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>术数天赋测试</h1>
+
+    <div class="subtitle">
+        共12题 · 测试你的玄学天赋路线
+    </div>
+
+    <div id="intro" class="intro">
+
+        <p>
+            浩瀚星河，易理万千。
+        </p>
+
+        <p>
+            从西方星盘到东方八字，
+            从塔罗到奇门遁甲。
+        </p>
+
+        <p>
+            每个人都有更适合自己的术数体系。
+        </p>
+
+        <button class="start-btn" onclick="startQuiz()">
+            开始测试
+        </button>
+
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+
+        <div id="progressText">
+            第1题 / 共12题
+        </div>
+
+        <div class="progress">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+    </div>
+
+    <div id="questionCard" class="question-card"></div>
+
+    <div id="result" class="result"></div>
+
+</div>
+
+<script>
+
+const questions = [
+
+{
+title:"关于文化传承与时代审美，你的底色是？",
+options:[
+"A 绝对复古派",
+"B 传统改良派",
+"C 兼容并蓄派",
+"D 效能演化派"
+]
+},
+
+{
+title:"到一个陌生环境时，你通常最先注意到什么？",
+options:[
+"A 布局秩序",
+"B 细节符号",
+"C 整体感觉",
+"D 气场氛围"
+]
+}
+
+];
+
+// 后面继续补Q3-Q12
+
+let currentQuestion = 0;
+let answers = [];
+
+function startQuiz(){
+
+    document.getElementById("intro").style.display="none";
+
+    document.getElementById("progressWrap").style.display="block";
+
+    renderQuestion();
+
+}
+
+function renderQuestion(){
+
+    let q = questions[currentQuestion];
+
+    document.getElementById("progressText").innerHTML=
+    `第 ${currentQuestion+1} 题 / 共 ${questions.length} 题`;
+
+    document.getElementById("progressBar").style.width=
+    ((currentQuestion+1)/questions.length*100)+"%";
+
+    let html=`
+
+    <div class="question-number">
+    Question ${currentQuestion+1}
+    </div>
+
+    <div class="question-title">
+    ${q.title}
+    </div>
+
+    `;
+
+    q.options.forEach((item,index)=>{
+
+        html+=`
+
+        <div class="option"
+        onclick="selectOption(${index},this)">
+
+        ${item}
+
+        </div>
+
+        `;
+
+    });
+
+    html+=`
+
+    <button class="next-btn"
+    onclick="nextQuestion()">
+
+    下一题
+
+    </button>
+
+    `;
+
+    document.getElementById("questionCard").innerHTML=html;
+    document.getElementById("questionCard").style.display="block";
+
+}
+
+function selectOption(index,el){
+
+    document
+    .querySelectorAll(".option")
+    .forEach(o=>o.classList.remove("selected"));
+
+    el.classList.add("selected");
+
+    answers[currentQuestion]=index;
+
+}
+
+function nextQuestion(){
+
+    if(answers[currentQuestion]==null){
+
+        alert("请选择一个选项");
+
+        return;
+    }
+
+    currentQuestion++;
+
+    if(currentQuestion>=questions.length){
+
+        showResult();
+
+        return;
+    }
+
+    renderQuestion();
+
+}
+
+function showResult(){
+
+    document.getElementById("questionCard").style.display="none";
+    document.getElementById("progressWrap").style.display="none";
+
+    // 这里以后替换成你的权重算法
+
+    const result=`
+
+    <h2>你的术数天赋排行</h2>
+
+    <div class="rank">
+        <div class="rank-title">
+        🥇 八字
+        </div>
+        匹配度 96%
+    </div>
+
+    <div class="rank">
+        <div class="rank-title">
+        🥈 奇门遁甲
+        </div>
+        匹配度 88%
+    </div>
+
+    <div class="rank">
+        <div class="rank-title">
+        🥉 大六壬
+        </div>
+        匹配度 83%
+    </div>
+
+    `;
+
+    document.getElementById("result").innerHTML=result;
+
+    document.getElementById("result").style.display="block";
+
+}
+
+</script>
+
+</body>
+</html>
